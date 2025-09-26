@@ -7,15 +7,25 @@ Minimal claims intake and validation API built with .NET 8, EF Core, and SQL Ser
 - Docker Desktop (for SQL Server container)
 
 ## Run
-1. `docker compose -f docker/docker-compose.yml up -d`
+1. Start Docker:
+   ```bash
+   docker compose -f docker/docker-compose.yml up -d
+   ```
 2. Set connection string in `Insurance.Api/appsettings.json` under `ConnectionStrings:Sql`
-3. Create DB:  
-   `dotnet ef database update --project Insurance.Infrastructure --startup-project Insurance.Api`
-4. Start API:  
-   `dotnet run --project Insurance.Api`
-5. Open Swagger at the shown URL
+3. Create the database:
+   ```bash
+   dotnet ef database update --project Insurance.Infrastructure --startup-project Insurance.Api
+   ```
+4. Start the API:
+   ```bash
+   dotnet run --project Insurance.Api
+   ```
+5. Open Swagger at the URL printed by the app
 
 ## Quick test (curl)
+
 Seed a sample policy:
+
 ```bash
 curl -X POST http://localhost:5000/api/policies/seed
+```
