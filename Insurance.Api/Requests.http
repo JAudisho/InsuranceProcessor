@@ -1,0 +1,21 @@
+﻿@baseUrl = http://localhost:5000
+
+### Seed
+POST {{baseUrl}}/api/policies/seed
+
+### Create
+POST {{baseUrl}}/api/claims
+Content-Type: application/json
+
+{
+  "policyNumber": "PC-10001",
+  "lossDate": "2025-05-20",
+  "amount": 1200,
+  "lossType": "Property"
+}
+
+### Validate (paste the id)
+POST {{baseUrl}}/api/claims/{id}/validate
+
+### List
+GET {{baseUrl}}/api/claims?page=1&pageSize=10
