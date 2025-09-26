@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Insurance Web</title></head>
+<body>
+  <button id="seed">Seed Policy</button>
+  <button id="create">Create Claim</button>
+  <input id="claimId" placeholder="Claim Id"/>
+  <button id="validate">Validate Claim</button>
+  <pre id="out"></pre>
+
+  <script>
+    const api = "http://localhost:5000"; // adjust to your API port
+    const out = (m) => document.getElementById('out').textContent += m + "\n";
+
+    document.getElementById('seed').onclick = async () => {
+      const r = await fetch(`${api}/api/policies/seed`, { method: 'POST' });
+      out("Seed: " + r.status);
+    };
+
+    document.getElementById('create').onclick = async () => {
+      const body = { policyNumber: "PC-10001", lossDate: "2025-05-20", amount: 1200, lossType: "Property" };
+      const r = await fetch(`${api}/api/claims`, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(body)});
+      const j = await r.json();
+      out("Created claim: " + j.id);
+      document.getElementById('claimId').value = j.id;
+    };
+
+    document.getElementById('validate').onclick = async () => {
+      const id = document.getElementById('claimId').value.trim();
+      const r = await fetch(`${api}/api/claims/${id}/validate`, { method: 'POST' });
+      const j = await r.json();
+      out("Validate: " + JSON.stringify(j));
+    };
+  </script>
+</body>
+</html>
